@@ -31,6 +31,9 @@
             app:destination="@id/camera_fragment"
             app:popUpTo="@id/permissions_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_permissions_fragment_to_selectFragment"
+            app:destination="@id/selectFragment" />
 
     </fragment>
 
@@ -48,6 +51,9 @@
             app:destination="@id/permissions_fragment"
             app:popUpTo="@id/camera_fragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_camera_fragment_to_selectFragment"
+            app:destination="@id/selectFragment" />
 
     </fragment>
 
@@ -58,6 +64,18 @@
         <argument
             android:name="root_directory"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectFragment"
+        android:name="com.android.example.cameraxbasic.fragments.SelectFragment"
+        android:label="fragment_select"
+        tools:layout="@layout/fragment_select" >
+        <action
+            android:id="@+id/action_selectFragment_to_camera_fragment"
+            app:destination="@id/camera_fragment" />
+        <action
+            android:id="@+id/action_selectFragment_to_permissions_fragment"
+            app:destination="@id/permissions_fragment" />
     </fragment>
 
 </navigation>

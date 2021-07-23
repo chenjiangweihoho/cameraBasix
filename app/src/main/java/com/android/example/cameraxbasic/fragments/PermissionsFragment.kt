@@ -44,7 +44,8 @@ class PermissionsFragment : Fragment() {
             requestPermissions(PERMISSIONS_REQUIRED, PERMISSIONS_REQUEST_CODE)
         } else {
             // If permissions have already been granted, proceed
-            navigateToCamera()
+//            navigateToCamera()
+            navigateToSelect()
         }
     }
 
@@ -55,7 +56,8 @@ class PermissionsFragment : Fragment() {
             if (PackageManager.PERMISSION_GRANTED == grantResults.firstOrNull()) {
                 // Take the user to the success fragment when permission is granted
                 Toast.makeText(context, "Permission request granted", Toast.LENGTH_LONG).show()
-                navigateToCamera()
+//                navigateToCamera()
+                navigateToSelect()
             } else {
                 Toast.makeText(context, "Permission request denied", Toast.LENGTH_LONG).show()
             }
@@ -66,6 +68,13 @@ class PermissionsFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             Navigation.findNavController(requireActivity(), R.id.fragment_container).navigate(
                     PermissionsFragmentDirections.actionPermissionsToCamera())
+        }
+    }
+    private fun navigateToSelect(){
+        lifecycleScope.launchWhenStarted {
+            Navigation.findNavController(requireActivity(),R.id.fragment_container).navigate(
+                PermissionsFragmentDirections.actionPermissionsFragmentToSelectFragment()
+            )
         }
     }
 
