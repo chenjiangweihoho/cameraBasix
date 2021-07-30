@@ -5,8 +5,10 @@ import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
@@ -16,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.PermissionRequest
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -48,6 +51,18 @@ class SelectFragment : Fragment() {
     private var imageUri:Uri? = null
     private var resolver:ContentResolver? =null
 
+    private var pictureShow:ImageView?=null
+    private var appleType:TextView? = null
+    private lateinit var showMessage:TextView
+    private lateinit var sugarValue:TextView
+
+    private var threadGrey:Int = 10
+    private var c1:Double = -0.134
+    private var c2:Double = 26.47
+    private var heightStart:Int = 1500
+    private var widthStart:Int = 1500
+    private var areaNum:Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -67,7 +82,10 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         resolver = requireContext().contentResolver
-
+        pictureShow = view.findViewById(R.id.picture)
+        appleType = view.findViewById(R.id.appleType)
+        showMessage = view.findViewById(R.id.showMessage)
+        sugarValue = view.findViewById(R.id.sugarValue)
         view.findViewById<ImageButton>(R.id.tackPicture).setOnClickListener{
             Navigation.findNavController(requireActivity(),R.id.fragment_container).navigate(
                 SelectFragmentDirections.actionSelectFragmentToCameraFragment()
@@ -79,10 +97,39 @@ class SelectFragment : Fragment() {
             }else{
                 openAlumb()
             }
+        }
+        view.findViewById<Button>(R.id.bingtangxin).setOnClickListener{
+            c1 = -0.134
+            c2 = 26.47
+            threadGrey = 10
+            appleType?.text = "苹果类型：冰糖心"
+            if (areaNum>0){
+                sugarValue.text = String.format("苹果糖度：%.3f",(c1*areaNum+c2))
+            }
 
         }
+        view.findViewById<Button>(R.id.hongfushi).setOnClickListener {
+            c1 = -0.15
+            c2 = 28.5
+            threadGrey = 12
+            appleType?.text = "苹果类型：红富士"
+            if (areaNum>0){
+                sugarValue.text = String.format("苹果糖度：%.3f",(c1*areaNum+c2))
+            }
+        }
+        view.findViewById<Button>(R.id.huangjinshuai).setOnClickListener {
+            c1 = -0.18
+            c2 = 24.5
+            threadGrey = 12
+            appleType?.text = "苹果类型：黄金帅"
+            if (areaNum>0){
+                sugarValue.text = String.format("苹果糖度：%.3f",(c1*areaNum+c2))
+            }
+        }
 //        view.findViewById<TextView>(R.id.tip).text ="请选择照片或者拍照"
-        view.findViewById<TextView>(R.id.showMessage)?.text = String.format("Tips:请选择一张照片或者拍照")
+        view.findViewById<TextView>(R.id.showMessage)?.text = String.format("Tip:请选择一张照片或者拍照")
+        val bitMap = BitmapFactory.decodeResource(resources,R.drawable.apple)
+        pictureShow?.setImageBitmap(bitMap)
     }
      fun openAlumb(){
         val intent = Intent()
@@ -146,7 +193,7 @@ class SelectFragment : Fragment() {
     private fun displayImage(imagePath:String?){
         if (imagePath != null){
             val bitmap = BitmapFactory.decodeFile(imagePath)
-            view?.findViewById<ImageView>(R.id.picture)?.setImageBitmap(bitmap)
+            pictureShow?.setImageBitmap(bitmap)
             view?.findViewById<TextView>(R.id.pictureName)?.text = File(imagePath).name
             convertGreyImg(bitmap)
 //            val resource = imagePath?.let { File(it) }?:R.drawable.ic_photo
@@ -158,9 +205,8 @@ class SelectFragment : Fragment() {
     private fun convertGreyImg(bitMap: Bitmap){
         val width = bitMap.width
         val height = bitMap.height
-        println("image:width "+width+" height "+height)
 
-        var areaNum = 0
+        println("image:width "+width+" height "+height)
 
         val pixels:IntArray = IntArray(width*height)
         bitMap.getPixels(pixels,0,width,0,0,width,height)
@@ -174,7 +220,7 @@ class SelectFragment : Fragment() {
                 val blue = (grey and 0x000000ff)
 
                 grey = (red.toFloat()*0.3+green.toFloat()*0.59+blue.toFloat()*0.11).toInt()
-                if (grey>10){
+                if (grey>threadGrey){
                     areaNum++
                 }
 
@@ -184,7 +230,8 @@ class SelectFragment : Fragment() {
             }
         }
 
-        view?.findViewById<TextView>(R.id.showMessage)?.text = String.format("分辨率：%d * %d   光斑面积：%d",width,height,areaNum)
+        showMessage.text = String.format("分辨率：%d * %d   光斑面积：%d",width,height,areaNum)
+        sugarValue.text = String.format("苹果糖度：%.3f",(c1*areaNum+c2))
     }
     companion object {
         /**

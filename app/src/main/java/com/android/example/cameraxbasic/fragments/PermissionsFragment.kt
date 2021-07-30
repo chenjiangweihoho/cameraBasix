@@ -46,6 +46,7 @@ class PermissionsFragment : Fragment() {
             // If permissions have already been granted, proceed
 //            navigateToCamera()
             navigateToSelect()
+//            navigateToLogin()
         }
     }
 
@@ -77,6 +78,13 @@ class PermissionsFragment : Fragment() {
             )
         }
     }
+//    private fun navigateToLogin(){
+//        lifecycleScope.launchWhenStarted {
+//            Navigation.findNavController(requireActivity(),R.id.fragment_container).navigate(
+//                PermissionsFragmentDirections.actionPermissionsFragmentToLoginFragment()
+//            )
+//        }
+//    }
 
     companion object {
 

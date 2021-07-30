@@ -20,11 +20,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/selectPicture"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/picture" />
+            app:layout_constraintTop_toBottomOf="@+id/appleType" />
 
         <TextView
             android:id="@+id/pictureName"
@@ -52,26 +51,80 @@
             android:layout_width="@dimen/rect_button_width"
             android:layout_height="@dimen/rect_button_width"
             android:layout_marginStart="81dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="79dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/ic_camera"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/selectPicture"
-            app:layout_constraintTop_toBottomOf="@+id/showMessage" />
+            app:layout_constraintStart_toEndOf="@+id/selectPicture" />
 
         <ImageView
             android:id="@+id/picture"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/showMessage"
+            app:layout_constraintBottom_toTopOf="@+id/appleType"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pictureName"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/appleType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="苹果类型：冰糖心"
+            app:layout_constraintBottom_toTopOf="@+id/showMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/picture" />
+
+        <Button
+            android:id="@+id/bingtangxin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="冰糖心"
+            app:layout_constraintBottom_toTopOf="@+id/selectPicture"
+            app:layout_constraintEnd_toStartOf="@+id/hongfushi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sugarValue" />
+
+        <Button
+            android:id="@+id/hongfushi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红富士"
+            app:layout_constraintBaseline_toBaselineOf="@+id/bingtangxin"
+            app:layout_constraintEnd_toStartOf="@+id/huangjinshuai"
+            app:layout_constraintStart_toEndOf="@+id/bingtangxin" />
+
+        <Button
+            android:id="@+id/huangjinshuai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="黄金帅"
+            app:layout_constraintBaseline_toBaselineOf="@+id/hongfushi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/hongfushi" />
+
+        <TextView
+            android:id="@+id/sugarValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/bingtangxin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/showMessage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
